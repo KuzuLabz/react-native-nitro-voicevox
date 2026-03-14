@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-02-08 21:22-0600\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ja\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/app/(tabs)/dictionary.tsx:109
+msgid "Add Word"
+msgstr "単語を追加"
+
+#: src/app/(tabs)/_layout.tsx:11
+msgid "Basic"
+msgstr "ベーシック"
+
+#: src/app/(tabs)/sing.tsx:7
+#~ msgid "Coming soon!"
+#~ msgstr "もうすぐ公開！"
+
+#: src/app/(tabs)/dictionary.tsx:111
+msgid "Delete Word"
+msgstr "単語削除"
+
+#: src/app/(tabs)/synth.tsx:136
+msgid "Ending Silence"
+msgstr "終了無音"
+
+#: src/app/(tabs)/synth.tsx:112
+msgid "Intonation"
+msgstr "抑揚"
+
+#: src/app/(tabs)/settings.tsx:26
+#~ msgid "Language"
+#~ msgstr "言語"
+
+#: src/app/(tabs)/dictionary.tsx:113
+msgid "Load"
+msgstr "読み込む"
+
+#: src/app/(tabs)/sing.tsx:44
+msgid "Load Sing Model"
+msgstr "歌うモデルを読み込む"
+
+#: src/app/(tabs)/synth.tsx:104
+msgid "Pitch"
+msgstr "音高"
+
+#: src/app/(tabs)/synth.tsx:150
+msgid "Play"
+msgstr "再生"
+
+#: src/app/(tabs)/dictionary.tsx:112
+#: src/app/(tabs)/synth.tsx:151
+msgid "Save"
+msgstr "保存"
+
+#: src/app/(tabs)/_layout.tsx:26
+#~ msgid "Settings"
+#~ msgstr "設定"
+
+#: src/app/(tabs)/_layout.tsx:19
+#: src/app/(tabs)/sing.tsx:45
+msgid "Sing"
+msgstr "歌う"
+
+#: src/app/(tabs)/index.tsx:44
+msgid "Speak"
+msgstr "話す"
+
+#: src/app/(tabs)/synth.tsx:96
+msgid "Speed"
+msgstr "話速"
+
+#: src/app/(tabs)/synth.tsx:128
+msgid "Starting Silence"
+msgstr "開始無音"
+
+#: src/app/(tabs)/_layout.tsx:15
+msgid "Synth"
+msgstr "音声合成"
+
+#: src/app/(tabs)/synth.tsx:148
+msgid "Synthesize"
+msgstr "音声合成を行う"
+
+#: src/app/(tabs)/_layout.tsx:23
+msgid "User Dict"
+msgstr "ユーザー辞書"
+
+#: src/app/(tabs)/synth.tsx:120
+msgid "Volume"
+msgstr "音量"
+
+#: src/app/(tabs)/dictionary.tsx:107
+msgid "Words"
+msgstr "単語"

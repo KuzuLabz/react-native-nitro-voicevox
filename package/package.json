@@ -1,0 +1,131 @@
+{
+    "name": "@kuzulabz/react-native-nitro-voicevox",
+    "version": "0.1.0",
+    "description": "A VOICEVOX React Native library built with Nitro!",
+    "main": "./lib/commonjs/index.js",
+    "module": "./lib/module/index.js",
+    "types": "./lib/typescript/index.d.ts",
+    "react-native": "src/index",
+    "source": "src/index",
+    "files": [
+        "src",
+        "react-native.config.js",
+        "lib",
+        "nitrogen",
+        "android/build.gradle",
+        "android/gradle.properties",
+        "android/fix-prefab.gradle",
+        "android/CMakeLists.txt",
+        "android/src",
+        "cpp",
+        "ios/**/*.h",
+        "ios/**/*.m",
+        "ios/**/*.mm",
+        "ios/**/*.cpp",
+        "ios/**/*.swift",
+        "app.plugin.js",
+        "nitro.json",
+        "*.podspec",
+        "README.md"
+    ],
+    "scripts": {
+        "typecheck": "tsc --noEmit",
+        "clean": "rm -rf android/build node_modules/**/android/build lib",
+        "release": "release-it",
+        "typescript": "tsc --noEmit",
+        "build": "bun run typecheck && bob build",
+        "codegen": "nitrogen --logLevel=\"debug\" && bun run build"
+    },
+    "keywords": [
+        "react-native",
+        "nitro"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KuzuLabz/react-native-nitro-voicevox.git"
+    },
+    "author": "KuzuLabz",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/KuzuLabz/react-native-nitro-voicevox/issues"
+    },
+    "homepage": "https://kuzulabz.com/docs/react-native/voicevox",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "devDependencies": {
+        "@react-native/eslint-config": "0.83.0",
+        "@types/react": "^19.1.03",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "nitrogen": "*",
+        "prettier": "^3.3.3",
+        "react": "19.2.0",
+        "react-native": "0.83.0",
+        "react-native-nitro-modules": "0.35.0",
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*",
+        "react-native-nitro-modules": "*"
+    },
+    "eslintConfig": {
+        "root": true,
+        "extends": [
+        "@react-native",
+        "prettier"
+        ],
+        "plugins": [
+        "prettier"
+        ],
+        "rules": {
+        "prettier/prettier": [
+            "warn",
+            {
+            "quoteProps": "consistent",
+            "singleQuote": true,
+            "tabWidth": 2,
+            "trailingComma": "es5",
+            "useTabs": false
+            }
+        ]
+        }
+    },
+    "eslintIgnore": [
+        "node_modules/",
+        "lib/"
+    ],
+    "prettier": {
+        "quoteProps": "consistent",
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "useTabs": false,
+        "semi": false
+    },
+    "react-native-builder-bob": {
+        "source": "src",
+        "output": "lib",
+        "targets": [
+            "commonjs",
+            "module",
+            [
+                "typescript",
+                {
+                    "project": "tsconfig.json"
+                }
+            ]
+        ]
+    },
+    "release-it": {
+        "npm": {
+            "publish": true
+        },
+        "git": false,
+        "github": {
+            "release": false
+        }
+    }
+}

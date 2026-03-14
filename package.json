@@ -1,0 +1,78 @@
+{
+    "name": "react-native-nitro-voicevox-monorepo",
+    "version": "0.1.0",
+    "scripts": {
+        "release": "./scripts/release.sh"
+    },
+    "workspaces": [
+        "package",
+        "example"
+    ],
+    "devDependencies": {
+        "@release-it-plugins/workspaces": "^5.0.3",
+        "@release-it/bumper": "^7.0.5",
+        "@release-it/conventional-changelog": "^10.0.5",
+        "@types/bun": "latest",
+        "react-native-builder-bob": "^0.40.18",
+        "release-it": "^19.2.4",
+        "typescript": "^5.7.2"
+    },
+    "release-it": {
+        "npm": {
+            "publish": false
+        },
+        "git": {
+            "commitMessage": "chore: release ${version}",
+            "tagName": "v${version}",
+            "requireCleanWorkingDir": false
+        },
+        "github": {
+            "release": true,
+            "releaseName": "v${version}"
+        },
+        "hooks": {
+            "before:release": "bun i"
+        },
+        "plugins": {
+            "@release-it/bumper": {
+                "out": [
+                    {
+                        "file": "package/package.json",
+                        "path": "version"
+                    },
+                    {
+                        "file": "example/package.json",
+                        "path": "version"
+                    }
+                ]
+            },
+            "@release-it/conventional-changelog": {
+                "preset": {
+                    "name": "conventionalcommits",
+                    "types": [
+                        {
+                            "type": "feat",
+                            "section": "✨ Features"
+                        },
+                        {
+                            "type": "perf",
+                            "section": "💨 Performance Improvements"
+                        },
+                        {
+                            "type": "fix",
+                            "section": "🐛 Bug Fixes"
+                        },
+                        {
+                            "type": "chore(deps)",
+                            "section": "🛠️ Dependency Upgrades"
+                        },
+                        {
+                            "type": "docs",
+                            "section": "📚 Documentation"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

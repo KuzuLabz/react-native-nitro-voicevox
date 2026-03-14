@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-02-08 21:22-0600\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/app/(tabs)/dictionary.tsx:109
+msgid "Add Word"
+msgstr "Add Word"
+
+#: src/app/(tabs)/_layout.tsx:14
+#~ msgid "Advanced"
+#~ msgstr "Advanced"
+
+#: src/app/(tabs)/_layout.tsx:11
+msgid "Basic"
+msgstr "Basic"
+
+#: src/app/(tabs)/sing.tsx:7
+#~ msgid "Coming soon!"
+#~ msgstr "Coming soon!"
+
+#: src/app/(tabs)/dictionary.tsx:111
+msgid "Delete Word"
+msgstr "Delete Word"
+
+#: src/app/(tabs)/synth.tsx:136
+msgid "Ending Silence"
+msgstr "Ending Silence"
+
+#: src/app/(tabs)/synth.tsx:112
+msgid "Intonation"
+msgstr "Intonation"
+
+#: src/app/(tabs)/settings.tsx:26
+#~ msgid "Language"
+#~ msgstr "Language"
+
+#: src/app/(tabs)/dictionary.tsx:113
+msgid "Load"
+msgstr "Load"
+
+#: src/app/(tabs)/sing.tsx:44
+msgid "Load Sing Model"
+msgstr "Load Sing Model"
+
+#: src/app/(tabs)/synth.tsx:104
+msgid "Pitch"
+msgstr "Pitch"
+
+#: src/app/(tabs)/synth.tsx:150
+msgid "Play"
+msgstr "Play"
+
+#: src/app/(tabs)/dictionary.tsx:112
+#: src/app/(tabs)/synth.tsx:151
+msgid "Save"
+msgstr "Save"
+
+#: src/app/(tabs)/_layout.tsx:26
+#~ msgid "Settings"
+#~ msgstr "Settings"
+
+#: src/app/(tabs)/_layout.tsx:19
+#: src/app/(tabs)/sing.tsx:45
+msgid "Sing"
+msgstr "Sing"
+
+#: src/app/(tabs)/index.tsx:44
+msgid "Speak"
+msgstr "Speak"
+
+#: src/app/(tabs)/synth.tsx:96
+msgid "Speed"
+msgstr "Speed"
+
+#: src/app/(tabs)/synth.tsx:128
+msgid "Starting Silence"
+msgstr "Starting Silence"
+
+#: src/app/(tabs)/_layout.tsx:15
+msgid "Synth"
+msgstr "Synth"
+
+#: src/app/(tabs)/synth.tsx:148
+msgid "Synthesize"
+msgstr "Synthesize"
+
+#: src/app/(tabs)/dictionary.tsx:112
+#~ msgid "Test Import"
+#~ msgstr "Test Import"
+
+#: src/app/(tabs)/_layout.tsx:23
+msgid "User Dict"
+msgstr "User Dict"
+
+#: src/app/(tabs)/synth.tsx:120
+msgid "Volume"
+msgstr "Volume"
+
+#: src/app/(tabs)/dictionary.tsx:107
+msgid "Words"
+msgstr "Words"

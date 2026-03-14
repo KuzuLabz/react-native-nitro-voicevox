@@ -1,0 +1,74 @@
+{
+  "name": "react-native-nitro-voicevox-example",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android --no-build-cache",
+    "ios": "expo run:ios --no-build-cache",
+    "web": "expo start --web",
+    "lint": "expo lint",
+    "extract": "lingui extract",
+    "compile": "lingui compile --typescript"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~55.0.6",
+    "@expo/vector-icons": "^15.0.3",
+    "@kuzulabz/react-native-nitro-voicevox": "*",
+    "@lingui/core": "^5.9.0",
+    "@lingui/react": "^5.9.0",
+    "@react-native-assets/slider": "^11.0.12",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "^55.0.6",
+    "expo-asset": "~55.0.8",
+    "expo-audio": "~55.0.8",
+    "expo-build-properties": "~55.0.9",
+    "expo-constants": "~55.0.7",
+    "expo-dev-client": "~55.0.16",
+    "expo-file-system": "~55.0.10",
+    "expo-linking": "~55.0.7",
+    "expo-localization": "~55.0.8",
+    "expo-router": "~55.0.5",
+    "expo-splash-screen": "~55.0.10",
+    "expo-status-bar": "~55.0.4",
+    "expo-symbols": "~55.0.5",
+    "expo-system-ui": "~55.0.9",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-native": "0.83.2",
+    "react-native-audio-api": "^0.11.5",
+    "react-native-gesture-handler": "~2.30.0",
+    "react-native-nitro-modules": "^0.33.2",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.23.0",
+    "react-native-web": "~0.21.0",
+    "react-native-zip-archive": "^7.0.2",
+    "zustand": "^5.0.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/runtime": "^7.28.6",
+    "@lingui/babel-plugin-lingui-macro": "^5.9.0",
+    "@lingui/cli": "^5.9.2",
+    "@lingui/metro-transformer": "^5.9.0",
+    "@types/react": "~19.1.0",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-preset-expo": "^55.0.11",
+    "eslint": "^9.25.0",
+    "eslint-config-expo": "~10.0.0",
+    "typescript": "~5.9.2"
+  },
+  "expo": {
+    "autolinking": {
+      "nativeModulesDir": "../node_modules",
+      "searchPaths": [
+        "../node_modules",
+        "..package"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "private": true
+}

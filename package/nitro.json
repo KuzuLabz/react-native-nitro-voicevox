@@ -1,0 +1,29 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": [
+    "voicevox"
+  ],
+  "ios": {
+    "iosModuleName": "NitroVoicevox"
+  },
+  "android": {
+    "androidNamespace": [
+      "voicevox"
+    ],
+    "androidCxxLibName": "NitroVoicevox"
+  },
+  "autolinking": {
+    "VoicevoxNitro": {
+        "cpp":  "HybridVoicevox"
+    },
+    "VoicevoxFactory": {
+        "cpp": "HybridVoicevoxFactory"
+    },
+    "UserDictNitro": {
+        "cpp": "HybridUserDict"
+    }
+  },
+  "ignorePaths": [
+    "**/node_modules"
+  ]
+}
