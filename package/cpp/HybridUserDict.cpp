@@ -45,6 +45,7 @@ std::string HybridUserDict::addWord(const UserDictWordInput &word) {
 
 void HybridUserDict::updateWord(const std::string &wordUuid, const UserDictWordInput &word) {
     uint8_t uuid[16];
+    Utils::string_to_uuid(wordUuid, uuid);
     VoicevoxUserDictWord userWord = UserDictUtils::nitro_word_to_vv(word);
     
     VoicevoxResultCode code = voicevox_user_dict_update_word(userDictPtr, &uuid, &userWord);
