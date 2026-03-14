@@ -86,3 +86,4 @@ lib/
 ios/Frameworks/*.xcframework
 
 # Android Binaries
+*.so
