@@ -1,6 +1,5 @@
 import { Directory, File, Paths } from "expo-file-system";
 import { Asset } from "expo-asset";
-import { openVoiceModelFile, Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
 
 const getModelDir = () => {
     return new Directory(Paths.document, 'models');
@@ -11,7 +10,6 @@ export const getLocalModel = async () => {
     const file = new File(modelDir, '0.vvm');
 
     if (file.exists) {
-        console.log('0.vvm exists!');
         return file.uri;
     } else {
         console.log('Getting 0.vvm');
