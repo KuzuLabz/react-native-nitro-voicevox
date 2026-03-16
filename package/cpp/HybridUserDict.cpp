@@ -23,7 +23,9 @@ std::shared_ptr<Promise<void>> HybridUserDict::load(const std::string &dictUrl) 
 
 std::shared_ptr<Promise<void>> HybridUserDict::save(const std::string &destUrl) {
     return Promise<void>::async([=, this]() -> void {
-        VoicevoxResultCode code = voicevox_user_dict_save(userDictPtr, destUrl.c_str());
+        auto filePath = Utils::clean_file_path(destUrl);
+
+        VoicevoxResultCode code = voicevox_user_dict_save(userDictPtr, filePath.c_str());
         
         if (code != VOICEVOX_RESULT_OK) {
             VoicevoxError("UserDict", "save", code);
