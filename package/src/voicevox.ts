@@ -25,7 +25,7 @@ export const Voicevox = {
     /**
      * Free the resources used.
      */
-    async deinitialize() {
+    deinitialize() {
         VoicevoxNitro.deinitialize();
     },
     /**
@@ -39,10 +39,7 @@ export const Voicevox = {
      * @param voiceModel A {@linkcode VoiceModelFile} object.
      */
     async loadVoiceModel(voiceModel: VoiceModelFile) {
-        const p1 = performance.now();
         await VoicevoxNitro.loadVoiceModel(voiceModel.getNativeInstance());
-        const p2 = performance.now();
-        console.log('loadVoiceModel:', `${p2 - p1}ms`);
     },
     /**
      * Checks if voice model is loaded.
@@ -58,10 +55,7 @@ export const Voicevox = {
      * @param voiceModelId The uuid string of the voice model.
      */
     async unloadVoiceModel(id: string) {
-        const p1 = performance.now();
         await VoicevoxNitro.unloadVoiceModel(id);
-        const p2 = performance.now();
-        console.log('unloadVoiceModel:', `${p2 - p1}ms`);
     },
     /**
      * Get the loaded character metas.
@@ -69,10 +63,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode CharacterMeta}
      */
     async getMetas() {
-        const p1 = performance.now();
         const json = await VoicevoxNitro.getMetas();
-        const p2 = performance.now();
-        console.log('getMetas:', `${p2 - p1}ms`);
         return convertCharacterMetasJson(json);
     },
     /**
@@ -92,10 +83,7 @@ export const Voicevox = {
      * ```
      */
     createAudioQuery(text: string, styleId: number): AudioQuery {
-        const p1 = performance.now();
         const json = VoicevoxNitro.createAudioQuery(text, styleId);
-        const p2 = performance.now();
-        console.log('createAudioQuery:', `${p2 - p1}ms`);
         return convertAudioQueryJson(json);
     },
     /**
@@ -126,10 +114,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode AccentPhrase} objects. 
      */
     createAccentPhrases(text: string, styleId: number): AccentPhrase[] {
-        const p1 = performance.now();
         const json = VoicevoxNitro.createAccentPhrases(text, styleId);
-        const p2 = performance.now();
-        console.log('createAccentPhrases:', `${p2 - p1}ms`);
         return convertAccentPhrasesJson(json);
     },
     /**
@@ -153,10 +138,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode AccentPhrase} objects. 
      */
     replaceMoraData(accentPhrases: AccentPhrase[], styleId: number): AccentPhrase[] {
-        const p1 = performance.now();
         const json = VoicevoxNitro.replaceMoraData(stringifyAccentPhrases(accentPhrases), styleId);
-        const p2 = performance.now();
-        console.log('replaceMoraData:', `${p2 - p1}ms`);
         return convertAccentPhrasesJson(json);
     },
     /**
@@ -168,10 +150,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode AccentPhrase} objects. 
      */
     replaceMoraPitch(accentPhrases: AccentPhrase[], styleId: number): AccentPhrase[] {
-        const p1 = performance.now();
         const json = VoicevoxNitro.replaceMoraPitch(stringifyAccentPhrases(accentPhrases), styleId);
-        const p2 = performance.now();
-        console.log('replaceMoraPitch:', `${p2 - p1}ms`);
         return convertAccentPhrasesJson(json);
     },
     /**
@@ -183,10 +162,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode AccentPhrase} objects. 
      */
     replacePhonemeLength(accentPhrases: AccentPhrase[], styleId: number): AccentPhrase[] {
-        const p1 = performance.now();
         const json = VoicevoxNitro.replacePhonemeLength(stringifyAccentPhrases(accentPhrases), styleId);
-        const p2 = performance.now();
-        console.log('replacePhonemeLength:', `${p2 - p1}ms`);
         return convertAccentPhrasesJson(json);
     },
     /**
@@ -207,10 +183,7 @@ export const Voicevox = {
      * ```
      */
     async synthesis(audioQuery: AudioQuery, styleId: number, options: AudioOptions = defaultAudioOptions) {
-        const p1 = performance.now();
         const result = await VoicevoxNitro.synthesis(stringifyAudioQuery(audioQuery), styleId, options);
-        const p2 = performance.now();
-        console.log('synthesis:', `${p2 - p1}ms`);
         return options.format === 'base64' ? mime + result : result;
     },
     /**
@@ -231,10 +204,7 @@ export const Voicevox = {
      * ```
      */
     async tts(text: string, styleId: number, options: AudioOptions = defaultAudioOptions) {
-        const p1 = performance.now();
         const result = await VoicevoxNitro.tts(text, styleId, options);
-        const p2 = performance.now();
-        console.log('tts:', `${p2 - p1}ms`);
         return options.format === 'base64' ? mime + result : result;
     },
     /**
@@ -275,13 +245,8 @@ export const Voicevox = {
      * ```
      */
     createSingFrameAudioQuery(score: Score, styleId: number): FrameAudioQuery {
-        const p1 = performance.now();
         const result = VoicevoxNitro.createSingFrameAudioQuery(stringifyScore(score), styleId);
-        const p2 = performance.now();
-        console.log('createSingFrameAudioQuery:', `${p2 - p1}ms`);
-        // console.log('Frame Raw:', result);
         const converted = convertFrameAudioQueryJson(result);
-        // console.log('Frame Converted:', converted);
         return converted;
     },
     /**
@@ -292,10 +257,7 @@ export const Voicevox = {
      * @returns Fundamental frequency per frame.
      */
     createSingFrameF0(score: Score, frameAudioQuery: FrameAudioQuery, styleId: number): number[] {
-        const p1 = performance.now();
         const result = VoicevoxNitro.createSingFrameF0(stringifyScore(score), stringifyFrameAudioQuery(frameAudioQuery), styleId);
-        const p2 = performance.now();
-        console.log('createSingFrameF0:', `${p2 - p1}ms`);
         return JSON.parse(result);
     },
     /**
@@ -306,11 +268,7 @@ export const Voicevox = {
      * @returns Volume per frame.
      */
     createSingFrameVolume(score: Score, frameAudioQuery: FrameAudioQuery, styleId: number): number[] {
-        const p1 = performance.now();
         const result = VoicevoxNitro.createSingFrameVolume(stringifyScore(score), stringifyFrameAudioQuery(frameAudioQuery), styleId);
-        const p2 = performance.now();
-        console.log('Volume:', result);
-        console.log('createSingFrameVolume:', `${p2 - p1}ms`);
         return JSON.parse(result);
     },
     /**
@@ -331,10 +289,7 @@ export const Voicevox = {
      * ```
      */
     async frameSynthesis(frameAudioQuery: FrameAudioQuery, styleId: number, format: AudioEncoding = 'base64'): Promise<string | ArrayBuffer> {
-        const p1 = performance.now();
         const result = await VoicevoxNitro.frameSynthesis(stringifyFrameAudioQuery(frameAudioQuery), styleId, format);
-        const p2 = performance.now();
-        console.log('frameSynthesis:', `${p2 - p1}ms`);
         return format === 'base64' ? mime + result : result;
     },
 
@@ -347,10 +302,7 @@ export const Voicevox = {
      * @returns A Promise that fulfills with an array of {@linkcode AccentPhrase} objects. 
      */
     analyze(text: string): AccentPhrase[] {
-        const p1 = performance.now();
         const json = VoicevoxNitro.analyze(text);
-        const p2 = performance.now();
-        console.log(`analyze (${p2 - p1}ms): ${json}`);
         return convertAccentPhrasesJson(json);
     },
     /**
@@ -367,10 +319,7 @@ export const Voicevox = {
      * ```
      */
     setUserDict(userDict: UserDict) {
-        const p1 = performance.now();
         VoicevoxNitro.setUserDict(userDict.getNativeInstance());
-        const p2 = performance.now();
-        console.log('setUserDict:', `${p2 - p1}ms`);
     },
 
     // Onnxruntime
@@ -381,6 +330,5 @@ export const Voicevox = {
     getSupportedDevices() {
         const json = VoicevoxNitro.getSupportedDevices();
         return JSON.parse(json) as SupportedDevices;
-        // VoicevoxNitro.getSupportedDevices();
     },
 };
