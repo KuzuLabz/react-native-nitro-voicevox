@@ -11,7 +11,7 @@ buildscript {
 
 def reactNativeArchitectures() {
   def value = rootProject.getProperties().get("reactNativeArchitectures")
-  return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
+  return value ? value.split(",") : ["x86_64", "arm64-v8a"]
 }
 
 def isNewArchitectureEnabled() {
@@ -114,7 +114,6 @@ android {
 
   sourceSets {
     main {
-        jniLibs.srcDirs = ["libs"]
       if (isNewArchitectureEnabled()) {
         java.srcDirs += [
           // React Codegen files

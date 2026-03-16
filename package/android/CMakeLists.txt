@@ -5,14 +5,18 @@ set (PACKAGE_NAME NitroVoicevox)
 set (CMAKE_VERBOSE_MAKEFILE ON)
 set (CMAKE_CXX_STANDARD 20)
 
+set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI})
+
 # Add Voicevox Binaries
 add_library(voicevox_core SHARED IMPORTED)
 add_library(voicevox_onnxruntime SHARED IMPORTED)
 set_target_properties(voicevox_core PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/src/main/libs/${ANDROID_ABI}/libvoicevox_core.so
+    IMPORTED_LOCATION "${LIBS_DIR}/libvoicevox_core.so"
+    IMPORTED_NO_SONAME TRUE
 )
 set_target_properties(voicevox_onnxruntime PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/src/main/libs/${ANDROID_ABI}/libvoicevox_onnxruntime.so
+    IMPORTED_LOCATION "${LIBS_DIR}/libvoicevox_onnxruntime.so"
+    IMPORTED_NO_SONAME TRUE
 )
 
 # Define C++ library and add all sources
@@ -34,6 +38,12 @@ include_directories(
 )
 
 find_library(LOG_LIB log)
+
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp
+    ${LIBS_DIR}
+)
 
 # Link all libraries together
 target_link_libraries(
