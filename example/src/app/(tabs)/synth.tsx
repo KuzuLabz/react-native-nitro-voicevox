@@ -1,46 +1,27 @@
 import { useModelsStore } from "@/src/store/useModelsStore";
 import { AudioQuery, Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
-import { ComponentProps, useState } from "react";
-import { Text, View } from "react-native";
-import { Slider } from '@react-native-assets/slider';
+import { useState } from "react";
+import { View } from "react-native";
 import { Button } from "@/src/components/button";
 import { useLingui } from "@lingui/react/macro";
-import { Theme } from "@/src/constants/theme";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import audioApi from "@/src/players/audioApi";
 import { VvTextInput } from "@/src/components/textInput";
 import { ParentView } from "@/src/components/container";
 import { SAMPLE_TEXT } from "@/src/constants/text";
-
-const AudioQuerySlider = ({title, ...props}: ComponentProps<typeof Slider> & {title: string; onReset: () => void}) => {
-    return(
-        <View style={{gap: 8}}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',}}>
-                <View style={{gap: 4}}>
-                    <Text style={{fontSize: 18}}>{title}</Text>
-                    <Text>{props.value?.toFixed(2)}</Text>
-                </View>
-                <MaterialCommunityIcons name="reload" onPress={props.onReset} size={18} />
-            </View>
-            <Slider {...props} trackHeight={6} thumbTintColor={Theme.primary} maximumTrackTintColor={Theme.secondary} minimumTrackTintColor={Theme.primary} />
-        </View>
-    );
-};
+import { bench } from "@/src/utils/bench";
+import { ThemedSlider } from "@/src/components/slider";
 
 const AdvancedTab = () => {
     const { t } = useLingui();
-    const { styleId, metas, } = useModelsStore();
+    const { styleId } = useModelsStore();
     const [source, setSource] = useState<ArrayBuffer | null>(null);
     const [audioQuery, setAudioQuery] = useState<AudioQuery | null>(null);
     const [text, setText] = useState(SAMPLE_TEXT);
 
     const createAudioQuery = async () => {
-        console.log('Styles:', metas[0]?.styles);
-        console.log('Create AudioQuery:', text, styleId);
         if (text && styleId) {
-            const aq = Voicevox.createAudioQuery(text, styleId);
+            const aq = bench('createAudioQuery', () => Voicevox.createAudioQuery(text, styleId));
             setAudioQuery(aq);
-            console.log('AudioQuery:', aq);
         }
     };
 
@@ -61,11 +42,10 @@ const AdvancedTab = () => {
         }
         if (audioQuery) {
             setSource(null);
-            const result = await Voicevox.synthesis(audioQuery, styleId, {format: 'arraybuffer', enableInterrogativeUpspeak: true});
+            const result = await bench('synthesis', async () => await Voicevox.synthesis(audioQuery, styleId, {format: 'arraybuffer', enableInterrogativeUpspeak: true}));
             if (result instanceof ArrayBuffer) {
                 setSource(result)
             }
-            console.log('Complete!');
         }
     };
 
@@ -92,7 +72,7 @@ const AdvancedTab = () => {
                     <Button title={`${audioQuery ? 'Recreate' : 'Create'} AudioQuery`} onPress={createAudioQuery} icon="code-braces" />
                     {
                         audioQuery && <View>
-                            <AudioQuerySlider 
+                            <ThemedSlider
                                 title={t`Speed`} 
                                 value={audioQuery.speedScale} 
                                 maximumValue={2.0} minimumValue={0.5}
@@ -100,7 +80,7 @@ const AdvancedTab = () => {
                                 onValueChange={(val) => updateAudioQuery({ speedScale: Number(val.toFixed(2)) })} 
                                 onReset={() => updateAudioQuery({ speedScale: 1.0})}
                             />
-                            <AudioQuerySlider 
+                            <ThemedSlider 
                                 title={t`Pitch`} 
                                 value={audioQuery.pitchScale} 
                                 maximumValue={0.15} minimumValue={-0.15} 
@@ -108,7 +88,7 @@ const AdvancedTab = () => {
                                 onValueChange={(val) => updateAudioQuery({ pitchScale: Number(val.toFixed(2)) })}  
                                 onReset={() => updateAudioQuery({ pitchScale: 0})}
                             />
-                            <AudioQuerySlider 
+                            <ThemedSlider 
                                 title={t`Intonation`} 
                                 value={audioQuery.intonationScale} 
                                 maximumValue={2.0} minimumValue={0} 
@@ -116,7 +96,7 @@ const AdvancedTab = () => {
                                 onValueChange={(val) => updateAudioQuery({ intonationScale: Number(val.toFixed(2)) })}  
                                 onReset={() => updateAudioQuery({ intonationScale: 1})}
                             />
-                            <AudioQuerySlider 
+                            <ThemedSlider 
                                 title={t`Volume`} 
                                 value={audioQuery.volumeScale} 
                                 maximumValue={2.0} minimumValue={0} 
@@ -124,7 +104,7 @@ const AdvancedTab = () => {
                                 onValueChange={(val) => updateAudioQuery({ volumeScale: Number(val.toFixed(2)) })}  
                                 onReset={() => updateAudioQuery({ volumeScale: 1})}
                             />
-                            <AudioQuerySlider 
+                            <ThemedSlider 
                                 title={t`Starting Silence`} 
                                 value={audioQuery.prePhonemeLength} 
                                 maximumValue={1.5} minimumValue={0} 
@@ -132,7 +112,7 @@ const AdvancedTab = () => {
                                 onValueChange={(val) => updateAudioQuery({ prePhonemeLength: Number(val.toFixed(2)) })} 
                                 onReset={() => updateAudioQuery({ prePhonemeLength: 0.10})} 
                             />
-                            <AudioQuerySlider 
+                            <ThemedSlider 
                                 title={t`Ending Silence`} 
                                 value={audioQuery.postPhonemeLength} 
                                 maximumValue={1.5} 
