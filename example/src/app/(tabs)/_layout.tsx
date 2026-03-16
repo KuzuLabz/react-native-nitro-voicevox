@@ -28,10 +28,10 @@ const TabLayout = () => {
                 <NativeTabs.Trigger.Icon sf={{selected: 'book.fill', default: 'book'}} md='book' />
                 {/* <Icon src={{"default": <VectorIcon family={MaterialCommunityIcons} name="book-outline" />, "selected": <VectorIcon family={MaterialCommunityIcons} name="book" />}} /> */}
             </NativeTabs.Trigger>
-            {/* <NativeTabs.Trigger name="settings">
-                <Label>{t`Settings`}</Label>
-                <Icon src={{"default": <VectorIcon family={MaterialCommunityIcons} name="cog-outline" />, "selected": <VectorIcon family={MaterialCommunityIcons} name="cog" />}} />
-            </NativeTabs.Trigger> */}
+            <NativeTabs.Trigger name="misc">
+                <NativeTabs.Trigger.Label>{t`Misc`}</NativeTabs.Trigger.Label>
+                <NativeTabs.Trigger.Icon src={<VectorIcon family={MaterialCommunityIcons} name="dots-horizontal" />} />
+            </NativeTabs.Trigger>
         </NativeTabs>
     );
 };
