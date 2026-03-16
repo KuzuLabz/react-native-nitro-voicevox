@@ -6,11 +6,13 @@ import { useState } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useExpoPlayer } from "@/src/players/useExpoPlayer";
 import { VvTextInput } from "@/src/components/textInput";
+import { SAMPLE_TEXT } from "@/src/constants/text";
+import { ParentView } from "@/src/components/container";
 
 export default function Index() {
     const { t } = useLingui();
     const { modelIds, metas, getRandomStyleId } = useModelsStore();
-    const [text, setText] = useState<string>("こんにちは世界！");
+    const [text, setText] = useState<string>(SAMPLE_TEXT);
     const [loading, setLoading] = useState(false);
 
     const { status, onPlay } = useExpoPlayer();
@@ -27,7 +29,7 @@ export default function Index() {
     };
 
   return (
-    <View
+    <ParentView
             style={{
                 flex: 1,
                 alignItems: "center",
@@ -43,6 +45,6 @@ export default function Index() {
             <VvTextInput value={text} onChangeText={setText} multiline />
             <Button title={t`Speak`} disabled={modelIds.length === 0 || status.playing || loading} onPress={speak} isLoading={loading} icon="play" />
             <Button title="LOG" onPress={checkDir} />
-        </View>
+        </ParentView>
   );
 }

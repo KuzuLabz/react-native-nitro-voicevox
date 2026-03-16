@@ -1,0 +1,1 @@
+export const SAMPLE_TEXT = "こんにちは世界！";

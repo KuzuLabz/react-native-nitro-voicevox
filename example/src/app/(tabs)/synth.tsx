@@ -1,15 +1,16 @@
 import { useModelsStore } from "@/src/store/useModelsStore";
 import { AudioQuery, Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
 import { ComponentProps, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, View } from "react-native";
 import { Slider } from '@react-native-assets/slider';
 import { Button } from "@/src/components/button";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useLingui } from "@lingui/react/macro";
 import { Theme } from "@/src/constants/theme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import audioApi from "@/src/players/audioApi";
 import { VvTextInput } from "@/src/components/textInput";
+import { ParentView } from "@/src/components/container";
+import { SAMPLE_TEXT } from "@/src/constants/text";
 
 const AudioQuerySlider = ({title, ...props}: ComponentProps<typeof Slider> & {title: string; onReset: () => void}) => {
     return(
@@ -31,7 +32,7 @@ const AdvancedTab = () => {
     const { styleId, metas, } = useModelsStore();
     const [source, setSource] = useState<ArrayBuffer | null>(null);
     const [audioQuery, setAudioQuery] = useState<AudioQuery | null>(null);
-    const [text, setText] = useState('こんにちは世界！');
+    const [text, setText] = useState(SAMPLE_TEXT);
 
     const createAudioQuery = async () => {
         console.log('Styles:', metas[0]?.styles);
@@ -85,11 +86,10 @@ const AdvancedTab = () => {
     };
 
     return(
-            <SafeAreaView style={{height: '100%', gap: 8, padding: 12, paddingTop: 28, paddingBottom: 92, justifyContent: 'space-between'}}>
+            <ParentView style={{height: '100%', gap: 8, padding: 12, paddingTop: 28, paddingBottom: 92, justifyContent: 'space-between'}}>
                 <View style={{gap: 12}}>
                     <VvTextInput value={text} onChangeText={setText} multiline />
                     <Button title={`${audioQuery ? 'Recreate' : 'Create'} AudioQuery`} onPress={createAudioQuery} icon="code-braces" />
-                    <Button title={'Log'} onPress={async () => styleId && console.log(Voicevox.createAccentPhrases(text, styleId))} />
                     {
                         audioQuery && <View>
                             <AudioQuerySlider 
@@ -151,8 +151,7 @@ const AdvancedTab = () => {
                         <Button title={t`Save`} onPress={onSaveWav} disabled={!source} icon="download" />
                     </View>
                 </View>
-                
-            </SafeAreaView>
+            </ParentView>
     );
 };
 
