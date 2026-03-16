@@ -8,10 +8,11 @@ import { useExpoPlayer } from "@/src/players/useExpoPlayer";
 import { VvTextInput } from "@/src/components/textInput";
 import { SAMPLE_TEXT } from "@/src/constants/text";
 import { ParentView } from "@/src/components/container";
+import { bench } from "@/src/utils/bench";
 
 export default function Index() {
     const { t } = useLingui();
-    const { modelIds, metas, getRandomStyleId } = useModelsStore();
+    const { modelIds, getRandomStyleId } = useModelsStore();
     const [text, setText] = useState<string>(SAMPLE_TEXT);
     const [loading, setLoading] = useState(false);
 
@@ -19,13 +20,9 @@ export default function Index() {
 
     const speak = async () => {
         setLoading(true);
-        const wavUri = await Voicevox.tts(text, getRandomStyleId('talk'));
+        const wavUri = await bench('tts', async () => await Voicevox.tts(text, getRandomStyleId('talk')));
         onPlay(wavUri as string);
         setLoading(false);
-    };
-
-    const checkDir = async () => {
-        console.log(metas[0]);
     };
 
   return (
@@ -44,7 +41,6 @@ export default function Index() {
             </View>
             <VvTextInput value={text} onChangeText={setText} multiline />
             <Button title={t`Speak`} disabled={modelIds.length === 0 || status.playing || loading} onPress={speak} isLoading={loading} icon="play" />
-            <Button title="LOG" onPress={checkDir} />
         </ParentView>
   );
 }

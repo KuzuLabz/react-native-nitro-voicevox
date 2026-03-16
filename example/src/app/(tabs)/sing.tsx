@@ -5,10 +5,11 @@ import { View } from "react-native";
 import { Score, Voicevox } from '@kuzulabz/react-native-nitro-voicevox';
 import { useState } from "react";
 import audioApi from "@/src/players/audioApi";
+import { bench } from "@/src/utils/bench";
 
 const SingPage = () => {
     const { t } = useLingui();
-    const { metas, singerId, singingTeacherId, isSingModelLoading, modelIds, getRandomStyleId, loadSingModel } = useModelsStore();
+    const { singerId, singingTeacherId, isSingModelLoading, modelIds, getRandomStyleId, loadSingModel } = useModelsStore();
     const [isLoading, setIsLoading] = useState(false);
 
     const score: Score = {
@@ -27,8 +28,8 @@ const SingPage = () => {
                 setIsLoading(true);
                 const randomStyleId = getRandomStyleId('sing');
                 console.log('Sing StyleId:', randomStyleId);
-                const frameAudioQuery = Voicevox.createSingFrameAudioQuery(score, singingTeacherId);
-                const result = await Voicevox.frameSynthesis(frameAudioQuery, randomStyleId, 'arraybuffer');
+                const frameAudioQuery = bench('createSingFrameAudioQuery', () => Voicevox.createSingFrameAudioQuery(score, singingTeacherId));
+                const result = await bench('frameSynthesis', async () => await Voicevox.frameSynthesis(frameAudioQuery, randomStyleId, 'arraybuffer'));
                 await audioApi.reset();
                 await audioApi.loadBuffer(result);
                 await audioApi.play();

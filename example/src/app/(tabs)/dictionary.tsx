@@ -1,9 +1,13 @@
 import { Button } from "@/src/components/button";
-import { UserDictWord, createUserDict } from "@kuzulabz/react-native-nitro-voicevox";
+import { bench } from "@/src/utils/bench";
+import { UserDictWord, Voicevox, createUserDict } from "@kuzulabz/react-native-nitro-voicevox";
 import { useLingui } from "@lingui/react/macro";
-import { Directory, File, Paths } from "expo-file-system";
+import { File, Paths } from "expo-file-system";
 import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
+
+const userdict_dir = 'UserDicts';
+const userdict_filename = 'userDict.json';
 
 const WordView = ({item}: { item: UserDictWord }) => {
     return(
@@ -19,27 +23,18 @@ const DictionaryPage = () => {
     const [words, setWords] = useState<UserDictWord[]>([]);
 
     const addWord = async () => {
-        
         console.log('Adding Word');
-        const ps = performance.now();
-        userDict.addWord({surface: 'テスト', pronunciation: 'テスト', accentType: 0, wordType: 'ADJECTIVE'});
-        const pe = performance.now();
-        // await Voicevox.setUserDict(userDict);
-        
+        bench('addWord', () => userDict.addWord({surface: 'テスト', pronunciation: 'テスト', accentType: 0, wordType: 'ADJECTIVE'}));
         const userDictWords = await userDict.getWords();
-        console.log('words:', userDictWords);
         setWords(userDictWords);
-        console.log('Time:', `${pe - ps}ms`);
     };
 
     const deleteWord = async () => {
         const lastWord = words.at(-1);
         if (lastWord?.id) {
-            const ps = performance.now();
-            userDict.removeWord(lastWord.id);
-            const pe = performance.now();
-            setWords((state) => state.filter((w) => w.id !== lastWord.id));
-            console.log('Time:', `${pe - ps}ms`);
+            bench('removeWord', () => userDict.removeWord(lastWord.id));
+            const userDictWords = await userDict.getWords();
+            setWords(userDictWords);
         }
     };
 
@@ -56,45 +51,30 @@ const DictionaryPage = () => {
     };
 
     const updateWord = async() => {
-        const ps = performance.now();
-        userDict.updateWord(words[0].id, {...words[0], pronunciation: 'チーバ'});
-        const pe = performance.now();
+        bench('updateWord', () => userDict.updateWord(words[0].id, {...words[0], surface: 'チーバ'}));
         const userDictWords = await userDict.getWords();
         setWords(userDictWords);
-        console.log('Time:', `${pe - ps}ms`);
     }
 
     const saveDict = async () => {
-        const dir = new Directory(Paths.document, 'UserDicts');
-        dir.create({idempotent: true});
-        const dest = new File(dir, 'dict2.json');
+        const file = new File(Paths.document, userdict_dir, userdict_filename);
+        file.create({intermediates: true, overwrite: true});
         try {
-            await userDict.save(dest.uri);
-            const text = await dest.text();
-            console.log(text);
+            await bench('save', async () => await userDict.save(file.uri));
         } catch (error) {
             console.error(error);
         }
     };
 
     const loadDict = async () => {
-        const file = new File(Paths.document, 'UserDicts', 'dict2.json');
-        console.log('File Content:', file.textSync());
-        await userDict.load(file.uri);
+        const file = new File(Paths.document, userdict_dir, userdict_filename);
+        await bench('load', async () => await userDict.load(file.uri));
         const userDictWords = await userDict.getWords();
-        console.log('Loaded Words:', userDictWords);
         setWords(userDictWords);
     };
 
-    const testCpp = async () => {
-        try {
-            // const userDictCpp = createUserDict();
-            userDict.addWord({surface: 'チービビ', pronunciation: 'チービビ', accentType: 0, wordType: 'VERB'});
-            const wordsCpp = await userDict.getWords();
-            console.log(wordsCpp);
-        } catch (e) {
-            console.error(e);
-        }
+    const setUserDict = () => {
+        bench('setUserDict', () => Voicevox.setUserDict(userDict));
     };
 
     useEffect(() => {
@@ -111,6 +91,7 @@ const DictionaryPage = () => {
                 <Button title={t`Delete Word`} onPress={deleteWord} disabled={words.length < 1} />
                 <Button title={t`Save`} onPress={saveDict} />
                 <Button title={t`Load`} onPress={loadDict} />
+                <Button title={'Set UserDict'} onPress={setUserDict} />
                 <View>
                     {words?.map((word, idx) => <WordView key={idx} item={word} />)}
                 </View>
