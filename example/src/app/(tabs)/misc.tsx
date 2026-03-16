@@ -1,5 +1,5 @@
 import { Button } from "@/src/components/button";
-import { ParentView } from "@/src/components/conatiner";
+import { ParentView } from "@/src/components/container";
 import { SAMPLE_TEXT } from "@/src/constants/text";
 import { bench } from "@/src/utils/bench";
 import { Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
