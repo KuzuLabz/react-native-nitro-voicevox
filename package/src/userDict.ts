@@ -5,10 +5,6 @@ import { convertUserDictWordsJson } from "./json";
 import type { UserDictWord } from "./types/userdict";
 import type { UserDictWordInput } from "./types/spec";
 
-// const VoicevoxFactoryCpp = NitroModules.createHybridObject<VoicevoxFactoryCppSpec>('VoicevoxFactoryCpp');
-
-// const createUserDictNitro = () => VoicevoxFactoryCpp.createUserDict();
-// NitroModules.createHybridObject<UserDictSpec>('UserDictCpp');
 export class UserDict {
     private _native: UserDictNitroSpec;
 
@@ -19,7 +15,7 @@ export class UserDict {
     /**
      * Adds a word to the user dictionary.
      * 
-     * @param word The {@linkcode UserDictWord} to add.
+     * @param word The {@linkcode UserDictWordInput} to add.
      * 
      * @returns A Promise that fulfills with the word's UUID string.
      * 
@@ -35,26 +31,26 @@ export class UserDict {
     /**
      * Updates a word in the user dictionary.
      * 
-     * @param wordUuid The word id.
+     * @param id The word id.
      * @param word The modified word.
      */
-    updateWord(wordUuid: string, word: UserDictWordInput): void {
-        return this._native.updateWord(wordUuid, word);
+    updateWord(id: string, word: UserDictWordInput): void {
+        return this._native.updateWord(id, word);
     };
 
     /**
      * Removes the word from the user dictionary.
      * 
-     * @param wordUuid The word id.
+     * @param id The word id.
      */
-    removeWord(wordUuid: string): void {
-        return this._native.removeWord(wordUuid);
+    removeWord(id: string): void {
+        return this._native.removeWord(id);
     };
 
     /**
      * Get all the words from this user dictionary.
      * 
-     * @returns A Promise that fulfills with an array of {@linkcode UserDictWordFull}
+     * @returns A Promise that fulfills with an array of {@linkcode UserDictWord}
      */
     async getWords(): Promise<UserDictWord[]> {
         const json = await this._native.getWords();
@@ -64,7 +60,7 @@ export class UserDict {
     /**
      * Loads a user dictionary from a file.
      * 
-     * @param dictUrl The file URI of a saved user dictionary.
+     * @param uri The file URI of a saved user dictionary.
      * 
      * @example
      * ```ts
@@ -72,14 +68,14 @@ export class UserDict {
      * await userDict.load(uri);
      * ```
      */
-    load(uri: string): Promise<void> {
+    async load(uri: string): Promise<void> {
         return this._native.load(uri);
     };
 
     /**
      * Saves the current user dictionary to file.
      * 
-     * @param destUrl The file URI destination to save to.
+     * @param uri The file URI destination to save to.
      * 
      * @example
      * ```ts
@@ -87,7 +83,7 @@ export class UserDict {
      * await userDict.save(uri);
      * ```
      */
-    save(uri: string): Promise<void> {
+    async save(uri: string): Promise<void> {
         return this._native.save(uri);
     };
 
@@ -96,7 +92,7 @@ export class UserDict {
      * 
      * @param other A {@linkcode UserDict} object.
      */
-    importDict(other: UserDict): Promise<void> {
+    async importDict(other: UserDict): Promise<void> {
         return this._native.importDict(other._native);
     };
 
