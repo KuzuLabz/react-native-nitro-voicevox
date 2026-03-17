@@ -16,11 +16,7 @@ export const convertUserDictWordsJson = (json: string): UserDictWord[] => {
             type: word.inflection_type
         },
         moraCount: word.mora_count,
-        posDetail: {
-            pos1: word.part_of_speech_detail_1,
-            pos2: word.part_of_speech_detail_2,
-            pos3: word.part_of_speech_detail_3
-        },
+        pos: [word.part_of_speech, word.part_of_speech_detail_1, word.part_of_speech_detail_2, word.part_of_speech_detail_3],
         priority: word.priority,
         pronunciation: word.pronunciation,
         stem: word.stem,

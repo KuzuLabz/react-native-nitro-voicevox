@@ -26,12 +26,6 @@ export enum UserDictWordTypeEnum {
 
 export type UserDictWordType = 'PROPER_NOUN' | 'COMMON_NOUN' | 'VERB' | 'ADJECTIVE' | 'SUFFIX';
 
-export interface UserDictWordDetail {
-    pos1: string;
-    pos2: string;
-    pos3: string;
-};
-
 export interface UserDictWordInflection {
     type: string;
     form: string;
@@ -49,6 +43,6 @@ export interface UserDictWord {
     readonly stem: string;
     readonly yomi: string;
     readonly moraCount: number;
-    readonly posDetail: UserDictWordDetail;
+    readonly pos: string[];
     readonly contextId: number;
 };
