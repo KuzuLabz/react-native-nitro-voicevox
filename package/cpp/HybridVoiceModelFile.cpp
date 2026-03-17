@@ -26,10 +26,4 @@ std::string HybridVoiceModelFile::getJson() {
     return Utils::json_to_string(json);
 }
 
-//void HybridVoiceModelFile::open(const std::string &uri) {
-//    char *json{};
-//    
-//    VoicevoxVoiceModelFile* file;
-//    VoicevoxResultCode code = voicevox_voice_model_file_open(uri.c_str(), &file);
-//}
 }
