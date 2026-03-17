@@ -22,6 +22,13 @@ export class VoiceModelFile {
     };
 
     /**
+     * Disposes the resources used from loading the voice model file.
+     */
+    dispose() {
+        this._native.dispose();
+    }
+
+    /**
      * For internal use!
      * 
      * @returns the nitro hybrid object
