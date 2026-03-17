@@ -14,13 +14,22 @@
   },
   "autolinking": {
     "VoicevoxNitro": {
-        "cpp":  "HybridVoicevox"
+        "all": {
+            "language": "c++",
+            "implementationClassName": "HybridVoicevox"
+        }
     },
     "VoicevoxFactory": {
-        "cpp": "HybridVoicevoxFactory"
+        "all": {
+            "language": "c++",
+            "implementationClassName": "HybridVoicevoxFactory"
+        }
     },
     "UserDictNitro": {
-        "cpp": "HybridUserDict"
+        "all": {
+            "language": "c++",
+            "implementationClassName": "HybridUserDict"
+        }
     }
   },
   "ignorePaths": [
