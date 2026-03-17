@@ -15,9 +15,7 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
-#include "HybridVoicevox.hpp"
-#include "HybridVoicevoxFactory.hpp"
-#include "HybridUserDict.hpp"
+
 
 namespace margelo::nitro::voicevox {
 
@@ -37,33 +35,7 @@ void registerAllNatives() {
   
 
   // Register Nitro Hybrid Objects
-  HybridObjectRegistry::registerHybridObjectConstructor(
-    "VoicevoxNitro",
-    []() -> std::shared_ptr<HybridObject> {
-      static_assert(std::is_default_constructible_v<HybridVoicevox>,
-                    "The HybridObject \"HybridVoicevox\" is not default-constructible! "
-                    "Create a public constructor that takes zero arguments to be able to autolink this HybridObject.");
-      return std::make_shared<HybridVoicevox>();
-    }
-  );
-  HybridObjectRegistry::registerHybridObjectConstructor(
-    "VoicevoxFactory",
-    []() -> std::shared_ptr<HybridObject> {
-      static_assert(std::is_default_constructible_v<HybridVoicevoxFactory>,
-                    "The HybridObject \"HybridVoicevoxFactory\" is not default-constructible! "
-                    "Create a public constructor that takes zero arguments to be able to autolink this HybridObject.");
-      return std::make_shared<HybridVoicevoxFactory>();
-    }
-  );
-  HybridObjectRegistry::registerHybridObjectConstructor(
-    "UserDictNitro",
-    []() -> std::shared_ptr<HybridObject> {
-      static_assert(std::is_default_constructible_v<HybridUserDict>,
-                    "The HybridObject \"HybridUserDict\" is not default-constructible! "
-                    "Create a public constructor that takes zero arguments to be able to autolink this HybridObject.");
-      return std::make_shared<HybridUserDict>();
-    }
-  );
+  
 }
 
 } // namespace margelo::nitro::voicevox
