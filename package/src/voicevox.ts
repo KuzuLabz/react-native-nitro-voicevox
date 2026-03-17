@@ -29,7 +29,7 @@ export const Voicevox = {
         VoicevoxNitro.deinitialize();
     },
     /**
-     * Checks if synthesizer is initialized.
+     * Check if synthesizer is initialized.
      */
     getIsInitialized() {
         return VoicevoxNitro.getIsInitialized();
@@ -42,7 +42,7 @@ export const Voicevox = {
         await VoicevoxNitro.loadVoiceModel(voiceModel.getNativeInstance());
     },
     /**
-     * Checks if voice model is loaded.
+     * Check if voice model is loaded.
      * @param voiceModelId The uuid string of the voice model.
      * 
      * @returns A Promise that fulfills with a boolean.
@@ -51,7 +51,7 @@ export const Voicevox = {
         return VoicevoxNitro.getIsVoiceModelLoaded(id);
     },
     /**
-     * Unloads the voice model.
+     * Unload the voice model.
      * @param voiceModelId The uuid string of the voice model.
      */
     async unloadVoiceModel(id: string) {
@@ -67,7 +67,7 @@ export const Voicevox = {
         return convertCharacterMetasJson(json);
     },
     /**
-     * Creates an AudioQuery object.
+     * Create an AudioQuery object.
      * 
      * Info: {@link [Synthesis Flow](https://github.com/VOICEVOX/voicevox_core/blob/main/docs/guide/user/tts-process.md)}
      * 
@@ -87,7 +87,7 @@ export const Voicevox = {
         return convertAudioQueryJson(json);
     },
     /**
-     * Creates an AudioQuery object using AquesTalk notation. 
+     * Create an AudioQuery object using AquesTalk notation. 
      * 
      * Info: {@link [Synthesis Flow](https://github.com/VOICEVOX/voicevox_core/blob/main/docs/guide/user/tts-process.md)}
      * 
@@ -293,6 +293,23 @@ export const Voicevox = {
         return format === 'base64' ? mime + result : result;
     },
 
+    /**
+     * Configure the user dictionary used by OpenJtalk.
+     * 
+     * *Call this method again after any changes to the UserDict.*
+     * 
+     * @param userDict A UserDict object.
+     * 
+     * @example
+     * ```ts
+     * const userDict = createUserDict();
+     * Voicevox.setUserDict(userDict);
+     * ```
+     */
+    setUserDict(userDict: UserDict) {
+        VoicevoxNitro.setUserDict(userDict.getNativeInstance());
+    },
+
     // OpenJTalk
     /**
      * Parse Japanese text using OpenJTalk.
@@ -305,27 +322,13 @@ export const Voicevox = {
         const json = VoicevoxNitro.analyze(text);
         return convertAccentPhrasesJson(json);
     },
-    /**
-     * Configure the user dictionary used by OpenJtalk.
-     * 
-     * *Call this method again after any changes to the UserDict.*
-     * 
-     * @param userDict A UserDict object.
-     * 
-     * @example
-     * ```ts
-     * const userDict = createUserDict();
-     * await Voicevox.setUserDict(userDict);
-     * ```
-     */
-    setUserDict(userDict: UserDict) {
-        VoicevoxNitro.setUserDict(userDict.getNativeInstance());
-    },
 
     // Onnxruntime
     /**
      * Get the onnxruntime supported devices.  
      * *cpu | cuda | dml*
+     * 
+     * @returns An object of {@linkcode SupportedDevices}
      */
     getSupportedDevices() {
         const json = VoicevoxNitro.getSupportedDevices();
