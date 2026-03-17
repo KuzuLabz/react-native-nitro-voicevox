@@ -14,12 +14,12 @@ const SingPage = () => {
 
     const score: Score = {
         notes: [
-        { key: null, frameLength: 15, lyric: "" },
-        { key: 60, frameLength: 45, lyric: "ド" },
-        { key: 62, frameLength: 45, lyric: "レ" },
-        { key: 64, frameLength: 45, lyric: "ミ" },
-        { key: null, frameLength: 15, lyric: "" },
-    ]
+            { key: null, frameLength: 15, lyric: "" },
+            { key: 60, frameLength: 45, lyric: "ド" },
+            { key: 62, frameLength: 45, lyric: "レ" },
+            { key: 64, frameLength: 45, lyric: "ミ" },
+            { key: null, frameLength: 15, lyric: "" },
+        ]
     };
 
     const onSing = async () => {
