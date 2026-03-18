@@ -1,5 +1,4 @@
 import { Button } from "@/src/components/button";
-import { bench } from "@/src/utils/bench";
 import { UserDictWord, Voicevox, createUserDict } from "@kuzulabz/react-native-nitro-voicevox";
 import { useLingui } from "@lingui/react/macro";
 import { File, Paths } from "expo-file-system";
@@ -24,7 +23,7 @@ const DictionaryPage = () => {
 
     const addWord = async () => {
         console.log('Adding Word');
-        bench('addWord', () => userDict.addWord({surface: 'テスト', pronunciation: 'テスト', accentType: 0, wordType: 'ADJECTIVE'}));
+        userDict.addWord({surface: 'テスト', pronunciation: 'テスト', accentType: 0, wordType: 'ADJECTIVE'});
         const userDictWords = await userDict.getWords();
         setWords(userDictWords);
     };
@@ -32,7 +31,7 @@ const DictionaryPage = () => {
     const deleteWord = async () => {
         const lastWord = words.at(-1);
         if (lastWord?.id) {
-            bench('removeWord', () => userDict.removeWord(lastWord.id));
+            userDict.removeWord(lastWord.id);
             const userDictWords = await userDict.getWords();
             setWords(userDictWords);
         }
@@ -51,7 +50,7 @@ const DictionaryPage = () => {
     };
 
     const updateWord = async() => {
-        bench('updateWord', () => userDict.updateWord(words[0].id, {...words[0], surface: 'チーバ'}));
+        userDict.updateWord(words[0].id, {...words[0], surface: 'チーバ'});
         const userDictWords = await userDict.getWords();
         setWords(userDictWords);
     }
@@ -60,7 +59,7 @@ const DictionaryPage = () => {
         const file = new File(Paths.document, userdict_dir, userdict_filename);
         file.create({intermediates: true, overwrite: true});
         try {
-            await bench('save', async () => await userDict.save(file.uri));
+            await userDict.save(file.uri);
         } catch (error) {
             console.error(error);
         }
@@ -68,13 +67,13 @@ const DictionaryPage = () => {
 
     const loadDict = async () => {
         const file = new File(Paths.document, userdict_dir, userdict_filename);
-        await bench('load', async () => await userDict.load(file.uri));
+        await userDict.load(file.uri);
         const userDictWords = await userDict.getWords();
         setWords(userDictWords);
     };
 
     const setUserDict = () => {
-        bench('setUserDict', () => Voicevox.setUserDict(userDict));
+        Voicevox.setUserDict(userDict);
     };
 
     useEffect(() => {

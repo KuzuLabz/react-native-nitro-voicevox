@@ -8,7 +8,6 @@ import audioApi from "@/src/players/audioApi";
 import { VvTextInput } from "@/src/components/textInput";
 import { ParentView } from "@/src/components/container";
 import { SAMPLE_TEXT } from "@/src/constants/text";
-import { bench } from "@/src/utils/bench";
 import { ThemedSlider } from "@/src/components/slider";
 
 const AdvancedTab = () => {
@@ -20,7 +19,7 @@ const AdvancedTab = () => {
 
     const createAudioQuery = async () => {
         if (text && styleId) {
-            const aq = bench('createAudioQuery', () => Voicevox.createAudioQuery(text, styleId));
+            const aq = Voicevox.createAudioQuery(text, styleId);
             setAudioQuery(aq);
         }
     };
@@ -42,7 +41,7 @@ const AdvancedTab = () => {
         }
         if (audioQuery) {
             setSource(null);
-            const result = await bench('synthesis', async () => await Voicevox.synthesis(audioQuery, styleId, {format: 'arraybuffer', enableInterrogativeUpspeak: true}));
+            const result = await Voicevox.synthesis(audioQuery, styleId, {format: 'arraybuffer', enableInterrogativeUpspeak: true});
             if (result instanceof ArrayBuffer) {
                 setSource(result)
             }

@@ -8,7 +8,6 @@ import { useExpoPlayer } from "@/src/players/useExpoPlayer";
 import { VvTextInput } from "@/src/components/textInput";
 import { SAMPLE_TEXT } from "@/src/constants/text";
 import { ParentView } from "@/src/components/container";
-import { bench } from "@/src/utils/bench";
 
 export default function Index() {
     const { t } = useLingui();
@@ -20,7 +19,7 @@ export default function Index() {
 
     const speak = async () => {
         setLoading(true);
-        const wavUri = await bench('tts', async () => await Voicevox.tts(text, getRandomStyleId('talk')));
+        const wavUri = await Voicevox.tts(text, getRandomStyleId('talk'));
         onPlay(wavUri as string);
         setLoading(false);
     };
