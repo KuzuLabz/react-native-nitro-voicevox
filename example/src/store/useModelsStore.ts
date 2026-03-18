@@ -51,7 +51,16 @@ export const useModelsStore = create<ModelsState & ModelsActions>((set, get) => 
             await Voicevox.loadVoiceModel(voiceModel);
             console.log(`${url.split('/').at(-1)} loaded!`);
             const metas = await Voicevox.getMetas();
-            set((state) => ({ ...state, styleId: metas[0]?.styles?.[0].id, modelIds: [...state.modelIds, voiceModel.id], metas, isModelLoading: false }));
+            set((state) => ({ 
+                ...state, 
+                styleId: metas[0]?.styles?.[0].id, 
+                modelIds: [...state.modelIds, voiceModel.id], 
+                metas, 
+                isModelLoading: false 
+            }));
+
+            // optional?
+            voiceModel.dispose();
         } catch (e) {
             console.error(e);
             return;
