@@ -47,6 +47,7 @@
     },
     "homepage": "https://kuzulabz.com/docs/react-native/voicevox",
     "publishConfig": {
+        "access": "public",
         "registry": "https://registry.npmjs.org/"
     },
     "devDependencies": {
@@ -70,23 +71,23 @@
     "eslintConfig": {
         "root": true,
         "extends": [
-        "@react-native",
-        "prettier"
+            "@react-native",
+            "prettier"
         ],
         "plugins": [
-        "prettier"
+            "prettier"
         ],
         "rules": {
-        "prettier/prettier": [
-            "warn",
-            {
-            "quoteProps": "consistent",
-            "singleQuote": true,
-            "tabWidth": 2,
-            "trailingComma": "es5",
-            "useTabs": false
-            }
-        ]
+            "prettier/prettier": [
+                "warn",
+                {
+                    "quoteProps": "consistent",
+                    "singleQuote": true,
+                    "tabWidth": 2,
+                    "trailingComma": "es5",
+                    "useTabs": false
+                }
+            ]
         }
     },
     "eslintIgnore": [
