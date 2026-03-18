@@ -65,7 +65,7 @@ const AdvancedTab = () => {
     };
 
     return(
-            <ParentView style={{height: '100%', gap: 8, padding: 12, paddingTop: 28, paddingBottom: 92, justifyContent: 'space-between'}}>
+            <ParentView style={{height: '100%', gap: 8, padding: 12, paddingBottom: 92, justifyContent: 'space-between'}}>
                 <View style={{gap: 12}}>
                     <VvTextInput value={text} onChangeText={setText} multiline />
                     <Button title={`${audioQuery ? 'Recreate' : 'Create'} AudioQuery`} onPress={createAudioQuery} icon="code-braces" />
