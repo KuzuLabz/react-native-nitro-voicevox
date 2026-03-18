@@ -1,6 +1,6 @@
 {
     "name": "@kuzulabz/react-native-nitro-voicevox",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "A VOICEVOX React Native library built with Nitro!",
     "main": "./lib/commonjs/index.js",
     "module": "./lib/module/index.js",
