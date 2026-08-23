@@ -7,7 +7,7 @@ import { Theme } from '@/src/constants/theme';
 const TabLayout = () => {
     const { t } = useLingui();
     return(
-        <NativeTabs iconColor={{selected: Theme.primary}} labelStyle={{selected: {color: "#000"}}}>
+        <NativeTabs iconColor={{selected: Theme.icon}} backgroundColor={'#edeee9'} indicatorColor={Theme.ripple} rippleColor={Theme.ripple} labelStyle={{selected: {color: "#000"}}}>
             <NativeTabs.Trigger name="index">
                 <NativeTabs.Trigger.Label>{t`Basic`}</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon sf={{selected: 'house.fill', default: 'house'}} md='home' />
