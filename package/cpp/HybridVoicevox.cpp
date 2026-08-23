@@ -112,8 +112,10 @@ std::shared_ptr<Promise<void>> HybridVoicevox::loadVoiceModel(const std::shared_
         
         // Get the pointer of the voice model file
         VoicevoxVoiceModelFile* rawPtr = std::dynamic_pointer_cast<HybridVoiceModelFile>(voiceModel)->voiceModelFilePtr;
+
+        auto initOptions = voicevox_make_default_load_voice_model_options();
         
-        VoicevoxResultCode code = voicevox_synthesizer_load_voice_model(synthPtr.value(), rawPtr);
+        VoicevoxResultCode code = voicevox_synthesizer_load_voice_model(synthPtr.value(), rawPtr, initOptions);
         
         if (code != VOICEVOX_RESULT_OK) {
             VoicevoxError("Voicevox", "loadVoiceModel", code);

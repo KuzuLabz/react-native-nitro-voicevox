@@ -15,7 +15,9 @@ export interface AccentPhrase {
     isInterrogative: boolean
 }
 
-// type StyleType = 'talk' | 'singing_teacher' | 'frame_decode' | 'sing'
+/**
+ * @param type 'talk' | 'singing_teacher' | 'frame_decode' | 'sing' | 'streaming_talk'
+ */
 export interface StyleMeta {
     id: number
     name: string
