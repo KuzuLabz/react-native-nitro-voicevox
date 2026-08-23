@@ -11,6 +11,7 @@ module.exports = function (api) {
     ],
     plugins: [
         '@lingui/babel-plugin-lingui-macro',
+        'react-native-worklets/plugin'
         ],
   };
 };
