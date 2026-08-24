@@ -1,18 +1,18 @@
-import { Button } from "@/src/components/button";
+import { ThemedHost } from "@/src/components/host";
+import { Button, Column, ScrollView, Text } from "@expo/ui";
 import { UserDictWord, Voicevox, createUserDict } from "@kuzulabz/react-native-nitro-voicevox";
 import { useLingui } from "@lingui/react/macro";
 import { File, Paths } from "expo-file-system";
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
 
 const userdict_dir = 'UserDicts';
 const userdict_filename = 'userDict.json';
 
 const WordView = ({item}: { item: UserDictWord }) => {
     return(
-        <View>
-            <Text>{item.surface} - {item.id}</Text>
-        </View>
+        <Column>
+            <Text>{`${item.surface} - ${item.id}`}</Text>
+        </Column>
     );
 };
 
@@ -79,23 +79,28 @@ const DictionaryPage = () => {
     useEffect(() => {
         console.log('Getting Words');
         userDict.getWords().then((w) => setWords(w));
-    },[]);
+    },[userDict]);
+
 
     return(
-        <ScrollView contentContainerStyle={{paddingVertical: 56, paddingHorizontal: 12}}>
-            <Text style={{fontSize: 24}}>{t`Words`}</Text>
-            <View style={{gap: 8}}>
-                <Button title={t`Add Word`} onPress={addWord} />
-                <Button title="Update Word" onPress={updateWord} />
-                <Button title={t`Delete Word`} onPress={deleteWord} disabled={words.length < 1} />
-                <Button title={t`Save`} onPress={saveDict} />
-                <Button title={t`Load`} onPress={loadDict} />
-                <Button title={'Set UserDict'} onPress={setUserDict} />
-                <View>
-                    {words?.map((word, idx) => <WordView key={idx} item={word} />)}
-                </View>
-            </View>
-        </ScrollView>
+        <ThemedHost style={{flex: 1}}>
+            <ScrollView style={{paddingHorizontal: 12, paddingVertical: 56, }}>
+                <Column>
+                    <Text textStyle={{fontSize: 24}}>{t`Words`}</Text>
+                    <Column spacing={8} style={{paddingBottom: 12}}>
+                        <Button label={t`Add Word`} onPress={addWord} />
+                        <Button label={t`Update Word`} onPress={updateWord} />
+                        <Button label={t`Delete Word`} onPress={deleteWord} />
+                        <Button label={t`Save`} onPress={saveDict} />
+                        <Button label={t`Load`} onPress={loadDict} />
+                        <Button label={t`Set UserDict`} onPress={setUserDict} />
+                    </Column>
+                    <Column spacing={12}>
+                        {words?.map((word, idx) => <WordView key={idx} item={word} />)}
+                    </Column>
+                </Column>
+            </ScrollView>
+        </ThemedHost>
     );
 };
 

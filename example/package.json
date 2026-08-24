@@ -13,11 +13,10 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.12",
-    "@expo/vector-icons": "^15.0.3",
+    "@expo/ui": "~57.0.12",
     "@kuzulabz/react-native-nitro-voicevox": "*",
     "@lingui/core": "^5.9.0",
     "@lingui/react": "^5.9.0",
-    "@react-native-assets/slider": "^11.0.12",
     "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "^57.0.15",
     "expo-asset": "~57.0.13",

@@ -1,25 +1,43 @@
 import { useModelsStore } from "@/src/store/useModelsStore";
 import { AudioQuery, Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
 import { useState } from "react";
-import { View } from "react-native";
-import { Button } from "@/src/components/button";
 import { useLingui } from "@lingui/react/macro";
 import audioApi from "@/src/players/audioApi";
-import { VvTextInput } from "@/src/components/textInput";
-import { ParentView } from "@/src/components/container";
 import { SAMPLE_TEXT } from "@/src/constants/text";
-import { ThemedSlider } from "@/src/components/slider";
+import { Button, Column, Row, ScrollView, Slider, SliderProps, Spacer, Text, TextInput, useNativeState } from "@expo/ui";
+import { Image } from '@expo/ui/swift-ui';
+import { Icon, IconButton } from '@expo/ui/jetpack-compose';
+import { Platform } from "react-native";
+import { ThemedHost } from "@/src/components/host";
+
+const NativeSlider = ({ label, onReset, ...props }:{ label: string; onReset: () => void } & SliderProps) => {
+    return(
+        <Column>
+            <Row alignment="center">
+                <Text>{`${label}: ${props.value.toFixed(2)}`}</Text>
+                <Spacer />
+                {
+                    Platform.select({
+                        ios: <Image systemName="arrow.clockwise" size={18} onPress={onReset} />,
+                        android: <IconButton><Icon source={require('../../../assets/icons/restart_alt.xml')} size={18} /></IconButton>
+                    })
+                }
+            </Row>
+            <Slider {...props} />
+        </Column>
+    );
+};
 
 const AdvancedTab = () => {
     const { t } = useLingui();
     const { styleId } = useModelsStore();
     const [source, setSource] = useState<ArrayBuffer | null>(null);
     const [audioQuery, setAudioQuery] = useState<AudioQuery | null>(null);
-    const [text, setText] = useState(SAMPLE_TEXT);
+    const text = useNativeState(SAMPLE_TEXT);
 
     const createAudioQuery = async () => {
         if (text && styleId) {
-            const aq = Voicevox.createAudioQuery(text, styleId);
+            const aq = Voicevox.createAudioQuery(text.value, styleId);
             setAudioQuery(aq);
         }
     };
@@ -65,72 +83,76 @@ const AdvancedTab = () => {
     };
 
     return(
-            <ParentView style={{height: '100%', gap: 8, padding: 12, paddingBottom: 92, justifyContent: 'space-between'}}>
-                <View style={{gap: 12}}>
-                    <VvTextInput value={text} onChangeText={setText} multiline />
-                    <Button title={`${audioQuery ? 'Recreate' : 'Create'} AudioQuery`} onPress={createAudioQuery} icon="code-braces" />
-                    {
-                        audioQuery && <View>
-                            <ThemedSlider
-                                title={t`Speed`} 
+        <ThemedHost style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+            <ScrollView>
+                <Column alignment="center" spacing={12} style={{paddingHorizontal: 12, width: '100%', paddingTop: 12}}>
+                    <TextInput value={text} multiline style={{ width: '100%', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#000000' }} />
+                    <Button label={t`Create AudioQuery`} onPress={createAudioQuery} />
+                    <Spacer />
+                    {audioQuery && 
+                        <Column spacing={12}>
+                            <NativeSlider 
+                                label={t`Speed`} 
                                 value={audioQuery.speedScale} 
-                                maximumValue={2.0} minimumValue={0.5}
-                                step={0.01} 
-                                onValueChange={(val) => updateAudioQuery({ speedScale: Number(val.toFixed(2)) })} 
+                                min={0.5} max={2.0}
+                                step={0.01}
+                                onValueChange={(val) => updateAudioQuery({ speedScale: Number(val.toFixed(2)) })}
                                 onReset={() => updateAudioQuery({ speedScale: 1.0})}
                             />
-                            <ThemedSlider 
-                                title={t`Pitch`} 
+                            <NativeSlider 
+                                label={t`Pitch`} 
                                 value={audioQuery.pitchScale} 
-                                maximumValue={0.15} minimumValue={-0.15} 
-                                step={0.01} 
-                                onValueChange={(val) => updateAudioQuery({ pitchScale: Number(val.toFixed(2)) })}  
+                                min={-0.15} max={0.15}
+                                step={0.01}
+                                onValueChange={(val) => updateAudioQuery({ pitchScale: Number(val.toFixed(2)) })} 
                                 onReset={() => updateAudioQuery({ pitchScale: 0})}
                             />
-                            <ThemedSlider 
-                                title={t`Intonation`} 
-                                value={audioQuery.intonationScale} 
-                                maximumValue={2.0} minimumValue={0} 
-                                step={0.01} 
-                                onValueChange={(val) => updateAudioQuery({ intonationScale: Number(val.toFixed(2)) })}  
+                            <NativeSlider 
+                                label={t`Intonation`}
+                                value={audioQuery.intonationScale}
+                                min={0} max={2.0}
+                                step={0.01}
+                                onValueChange={(val) => updateAudioQuery({ intonationScale: Number(val.toFixed(2)) })} 
                                 onReset={() => updateAudioQuery({ intonationScale: 1})}
                             />
-                            <ThemedSlider 
-                                title={t`Volume`} 
+                            <NativeSlider 
+                                label={t`Volume`}
                                 value={audioQuery.volumeScale} 
-                                maximumValue={2.0} minimumValue={0} 
-                                step={0.01} 
+                                min={0} max={2.0}
+                                step={0.01}
                                 onValueChange={(val) => updateAudioQuery({ volumeScale: Number(val.toFixed(2)) })}  
                                 onReset={() => updateAudioQuery({ volumeScale: 1})}
                             />
-                            <ThemedSlider 
-                                title={t`Starting Silence`} 
+                            <NativeSlider 
+                                label={t`Starting Silence`}
                                 value={audioQuery.prePhonemeLength} 
-                                maximumValue={1.5} minimumValue={0} 
-                                step={0.01} 
+                                min={0} max={1.5}
+                                step={0.01}
                                 onValueChange={(val) => updateAudioQuery({ prePhonemeLength: Number(val.toFixed(2)) })} 
                                 onReset={() => updateAudioQuery({ prePhonemeLength: 0.10})} 
                             />
-                            <ThemedSlider 
-                                title={t`Ending Silence`} 
+                            <NativeSlider 
+                                label={t`Ending Silence`}
                                 value={audioQuery.postPhonemeLength} 
-                                maximumValue={1.5} 
-                                minimumValue={0} 
-                                step={0.01} 
+                                min={0} max={1.5}
+                                step={0.01}
                                 onValueChange={(val) => updateAudioQuery({ postPhonemeLength: Number(val.toFixed(2)) })}  
                                 onReset={() => updateAudioQuery({ postPhonemeLength: 0.10})}
                             />
-                        </View>
+                        </Column>
                     }
-                </View>
-                <View style={{gap: 12}}>
-                    <Button title={t`Synthesize`} onPress={() => onSynth()} icon="waveform" disabled={!audioQuery} />
-                    <View style={{flexDirection: 'row', gap: 12, justifyContent: 'center',}}>
-                        <Button title={t`Play`} onPress={playAudio} disabled={!source} icon="play" />
-                        <Button title={t`Save`} onPress={onSaveWav} disabled={!source} icon="download" />
-                    </View>
-                </View>
-            </ParentView>
+                    {audioQuery && 
+                        <Column alignment="center" style={{ width: '100%'}} >
+                            <Button label={t`Synthesize`} onPress={onSynth} />
+                            <Row spacing={12}>
+                                <Button label={t`Save`} onPress={onSaveWav} disabled={!source} />
+                                <Button label={t`Play`} onPress={playAudio} disabled={!source} />
+                            </Row>
+                        </Column>
+                    }
+                </Column>
+            </ScrollView>
+        </ThemedHost>
     );
 };
 

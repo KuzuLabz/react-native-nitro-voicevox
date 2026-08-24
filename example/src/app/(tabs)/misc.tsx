@@ -1,11 +1,14 @@
-import { Button } from "@/src/components/button";
-import { ParentView } from "@/src/components/container";
+import { ThemedHost } from "@/src/components/host";
 import { SAMPLE_TEXT } from "@/src/constants/text";
+import { Button, Column } from "@expo/ui";
 import { Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
+import { useLingui } from "@lingui/react/macro";
 
 const MiscPage = () => {
+    const { t } = useLingui();
+
     const onAnalyze = () => {
-        console.log(Voicevox.analyze(SAMPLE_TEXT));
+        console.log(JSON.stringify(Voicevox.analyze(SAMPLE_TEXT), undefined, 2));
     };
 
     const onSupportedDevices = () => {
@@ -13,10 +16,12 @@ const MiscPage = () => {
     };
 
     return(
-        <ParentView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap:12, paddingHorizontal: 12, paddingVertical: 24}}>
-            <Button title="Analyze" onPress={onAnalyze} />
-            <Button title="Supported Devices" onPress={onSupportedDevices} />
-        </ParentView>
+        <ThemedHost style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Column alignment="center">
+                <Button label={t`Analyze`} onPress={onAnalyze} />
+                <Button label={t`Supported Devices`} onPress={onSupportedDevices} />
+            </Column>
+        </ThemedHost>
     );
 };
 
