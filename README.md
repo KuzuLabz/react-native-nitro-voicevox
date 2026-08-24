@@ -3,7 +3,8 @@
 An unoffical VOICEVOX React Native package built with [Nitro](https://nitro.margelo.com/)!
 
 ## Requirements
-- Android minSdkVersion 26 
+- Android minSdkVersion: 26 
+- iOS deploymentTarget: 16.4
 
 ## Installation
 ```bash
