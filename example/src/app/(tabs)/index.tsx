@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useExpoPlayer } from "@/src/players/useExpoPlayer";
 import { SAMPLE_TEXT } from "@/src/constants/text";
-import { Column, TextInput, Text, Button, useNativeState } from '@expo/ui';
+import { Column, Text, Button, useNativeState, Spacer } from '@expo/ui';
 import { ThemedHost } from '@/src/components/host';
+import { TextInput } from '@/src/components/textInput';
 
 export default function Index() {
     const { t } = useLingui();
@@ -25,12 +26,18 @@ export default function Index() {
     return (
         <ThemedHost style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Column alignment='center' spacing={6} >
+                <Spacer flexible />
                 <Text>TTS</Text>
                 <Text>{'voicevox_core v' + Voicevox.VOICEVOX_VERSION}</Text>
                 <Column spacing={12} alignment='center' style={{paddingHorizontal: 12}}>
-                    <TextInput value={text} multiline style={{ width: '100%', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#000000' }} />
+                    <TextInput
+                        label={t`Input`}
+                        value={text} 
+                        multiline
+                    />
                     <Button label={t`Speak`} disabled={modelIds.length === 0 || status.playing || loading} onPress={speak}  />
                 </Column>
+                <Spacer flexible />
             </Column>
         </ThemedHost>
     );

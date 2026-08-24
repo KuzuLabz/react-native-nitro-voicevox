@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { VoicevoxProvider } from "../providers/voicevox";
 import { I18nProvider, TransRenderProps } from "@lingui/react";
 import { i18n } from "@lingui/core";
-import { Text } from "react-native";
+import { Appearance, StatusBar, Text } from "react-native";
 import { getLocales } from 'expo-localization';
 import { messages } from '@/locales/en/messages.po';
 import { messages as messagesJa } from '@/locales/ja/messages.po';
@@ -19,11 +19,14 @@ const DefaultComponent = (props: TransRenderProps) => {
 };
 
 export default function RootLayout() {
-  return <VoicevoxProvider>
-    <I18nProvider i18n={i18n} defaultComponent={DefaultComponent}>
-        <Stack screenOptions={{headerShown: false, animation: 'slide_from_left'}}>
-            <Stack.Screen name="(tabs)" />
-        </Stack>
-    </I18nProvider>
-  </VoicevoxProvider>;
+  return (
+    <VoicevoxProvider>
+        <I18nProvider i18n={i18n} defaultComponent={DefaultComponent}>
+            <Stack screenOptions={{headerShown: false, animation: 'slide_from_left'}}>
+                <Stack.Screen name="(tabs)" />
+            </Stack>
+            <StatusBar barStyle={Appearance.getColorScheme() === 'light' ? 'dark-content' : 'light-content'} />
+        </I18nProvider>
+    </VoicevoxProvider>
+  );
 }

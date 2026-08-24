@@ -3,7 +3,7 @@ import { useLingui } from "@lingui/react/macro";
 import { Score, Voicevox } from '@kuzulabz/react-native-nitro-voicevox';
 import { useState } from "react";
 import audioApi from "@/src/players/audioApi";
-import { Button, Column } from "@expo/ui";
+import { Button, Column, Spacer } from "@expo/ui";
 import { ThemedHost } from "@/src/components/host";
 
 const SingPage = () => {
@@ -42,10 +42,12 @@ const SingPage = () => {
 
 
     return(
-        <ThemedHost style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+        <ThemedHost style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Column spacing={12} alignment="center">
-                <Button label={t`Load Sing Model`} onPress={loadSingModel} disabled={modelIds.includes('81fed1e8-aa94-4863-ae66-4adacb784879') || isSingModelLoading} />
-                <Button label={t`Sing`} onPress={onSing} disabled={isLoading || !modelIds.includes('81fed1e8-aa94-4863-ae66-4adacb784879')} />
+                <Spacer flexible />
+                    <Button label={t`Load Sing Model`} onPress={loadSingModel} disabled={modelIds.includes('81fed1e8-aa94-4863-ae66-4adacb784879') || isSingModelLoading} />
+                    <Button label={t`Sing`} onPress={onSing} disabled={isLoading || !modelIds.includes('81fed1e8-aa94-4863-ae66-4adacb784879')} />
+                <Spacer flexible />
             </Column>
         </ThemedHost>
     );

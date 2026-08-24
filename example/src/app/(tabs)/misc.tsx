@@ -1,6 +1,6 @@
 import { ThemedHost } from "@/src/components/host";
 import { SAMPLE_TEXT } from "@/src/constants/text";
-import { Button, Column } from "@expo/ui";
+import { Button, Column, Spacer } from "@expo/ui";
 import { Voicevox } from "@kuzulabz/react-native-nitro-voicevox";
 import { useLingui } from "@lingui/react/macro";
 
@@ -18,8 +18,10 @@ const MiscPage = () => {
     return(
         <ThemedHost style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Column alignment="center">
+                <Spacer flexible />
                 <Button label={t`Analyze`} onPress={onAnalyze} />
                 <Button label={t`Supported Devices`} onPress={onSupportedDevices} />
+                <Spacer flexible />
             </Column>
         </ThemedHost>
     );
